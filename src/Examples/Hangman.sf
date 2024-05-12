@@ -1,0 +1,90 @@
+println("Hangman game")
+println("Type a word...")
+
+let wordTyped = consoleRead();
+
+let wordGuessed = strRepeat("_", strLen(wordTyped));
+
+let attemptsRemaining = 6;
+let usedLetters = "";
+consoleClear()
+func ReplaceLetter(word, guessed, letter, index)
+{
+    if (index >= strLen(word))
+    {
+        return guessed;
+    }
+
+    if (word[index] == letter)
+    {
+        guessed = strSetAtIndex(guessed, index, word[index]);
+    }
+
+    const val = ReplaceLetter(word, guessed, letter, index + 1);
+
+    return val;
+}
+
+func HangmanGame(word, remainingAttempts, lettersUsed, guessed)
+{
+    println("")
+    println("The word has:", strLen(word), "characters")
+    println(guessed)
+    println("Remaining attempts: ", remainingAttempts)
+    println("Already used letters: " + lettersUsed)
+    
+    if (guessed == word)
+    {
+        println("You won! the word was:", word)
+        return;
+    }
+
+    if (remainingAttempts == 0)
+    {
+        println("You lost, the word was:", word)
+        return;
+    }
+    println("")
+    print("Type a letter: ")
+
+    const letter = consoleRead();
+
+    if(strLen(letter) > 1)
+    {
+        println("The value is not a letter")
+        HangmanGame(word, remainingAttempts, lettersUsed, guessed)
+        return;
+    }
+ 
+    if(strContains(lettersUsed, letter))
+    {
+        println("Letter already used, type another one.")
+        HangmanGame(word, remainingAttempts, lettersUsed, guessed)
+        return;
+    }
+
+    lettersUsed = lettersUsed + letter;
+
+    guessed = ReplaceLetter(word, guessed, letter, 0);
+
+    if (guessed == word)
+    {
+        println("You won! the word was:", word)
+        return;
+    }
+
+    if (strContains(word, letter))
+    {
+        println("The word contains the letter:", letter)
+    }
+    else
+    {
+        println("The word DOES NOT contains the letter:", letter)
+        remainingAttempts = remainingAttempts - 1;
+    }
+
+    HangmanGame(word, remainingAttempts, lettersUsed, guessed)
+}
+
+
+HangmanGame(wordTyped, attemptsRemaining, usedLetters, wordGuessed)
