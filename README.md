@@ -1,2 +1,8 @@
 # Sulfur
-An interpreted programming language
+A C# interpreted programming language
+
+Some parts comes from a playlist https://www.youtube.com/playlist?list=PL_2VhOvlMk4UHGqYCLWc6GO8FaPl8fQTh
+
+Why the name is Sulfur?
+It's because sulfur is a little heavy, smells a bit and can catch on fire
+like this language ;-;
